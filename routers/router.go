@@ -7,9 +7,13 @@ import (
 
 func init() {
 	//学生列表
-  	beego.Router("/student/info",&controllers.StudentController{})
+  	beego.Router("/student/info",&controllers.StudentControllers{},"*:One")
+	beego.Router("/student/info/list",&controllers.StudentControllers{},"*:AllList")
+  	//考试列表
+	beego.Router("/exam/info",&controllers.GradeControllers{},"get:One")
+	beego.Router("/exam/info/list",&controllers.GradeControllers{},"*:AllList")
   	//教师列表
-	beego.Router("/teacher/info",&controllers.ClazzCourseTeacherController{})
+	//beego.Router("/teacher/info",&controllers.ClazzCourseTeacherController{})
   	////
 	//beego.Router("/clazz/info",&)
 	//beego.Router("/grade/info",&)

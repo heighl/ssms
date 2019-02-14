@@ -2,19 +2,27 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/prometheus/common/log"
 	"ssms/models"
 )
 
-type StudentController struct {
+type StudentControllers struct {
 	beego.Controller
 }
 
-func (st *StudentController) Get()  {
-	g,err:=models.GetOne(2)
+func (this *StudentControllers)One()  {
+	grade:=models.Student{Id:1}
+	grade.OneGrade()
+	this.Data["json"]=&grade
+	this.ServeJSON()
+}
+
+func (this *StudentControllers) AllList()  {
+	grade:=&models.Student{}
+	grades,err:=grade.AllGrade()
 	if err!=nil{
-		log.Info("getone err")
+		this.Ctx.WriteString("获取班级列表错误")
+		this.StopRun()
 	}
-	st.Data["json"]=&g
-	st.ServeJSON()
+	this.Data["json"]=grades
+	this.ServeJSON()
 }
