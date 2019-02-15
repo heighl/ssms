@@ -3,11 +3,11 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type CCT struct {
-	Id        int64
-	ClazzId   *Clazz   `orm:"rel(fk)"`
-	GradeId   *Grade   `orm:"rel(fk)"`
-	CourseId  *Course  `orm:"rel(fk)"`
-	TeacherId *Teacher `orm:"rel(fk)"`
+	Id      int64
+	Clazz   *Clazz   `orm:"rel(fk)"`
+	Grade   *Grade   `orm:"rel(fk)"`
+	Course  *Course  `orm:"rel(fk)"`
+	Teacher *Teacher `orm:"rel(fk)"`
 }
 
 func (cct *CCT) OneGrade() {

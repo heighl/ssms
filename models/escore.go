@@ -3,13 +3,13 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type Escore struct {
-	Id        int64
-	ExamId    *Exam    `orm:"rel(fk)"`
-	ClazzId   *Clazz   `orm:"rel(fk)"`
-	StudentId *Student `orm:"rel(fk)"`
-	GradeId   *Grade   `orm:"rel(fk)"`
-	CourseId  *Course  `orm:"rel(fk)"`
-	Score     int64
+	Id      int64
+	Exam    *Exam    `orm:"rel(fk)"`
+	Clazz   *Clazz   `orm:"rel(fk)"`
+	Student *Student `orm:"rel(fk)"`
+	Grade   *Grade   `orm:"rel(fk)"`
+	Course  *Course  `orm:"rel(fk)"`
+	Score   int64
 }
 
 func (escore *Escore) OneGrade() {

@@ -1,31 +1,36 @@
 package models
 
-import "github.com/astaxie/beego/orm"
+import (
+	"github.com/apex/log"
+	"github.com/astaxie/beego/orm"
+)
 
 type Student struct {
-	Id      int64
+	Id      int
 	Number  string
 	Name    string
 	Sex     string
 	Phone   string
 	Qq      string
-	ClazzId *Clazz    `orm:"rel(fk)"`
-	GradeId *Grade    `orm:"rel(fk)"`
+	Clazz *Clazz    `orm:"rel(fk)"`
+	Grade *Grade    `orm:"rel(fk)"`
 	//Escore  []*Escore `orm:"reverse(many)"`
 }
 
-func (student *Student) OneGrade() {
+func (this *Student) GetOne() *Student {
 	o := orm.NewOrm()
-	err := o.Read(student)
+	err := o.Read(this)
 	if err != nil {
-		return
+		log.Info(err.Error())
+		return nil
 	}
+	return this
 }
 
 func (student *Student) AllGrade() ([]*Student, error) {
 	var students []*Student
 	o := orm.NewOrm()
-	_, err := o.QueryTable(Student{}).OrderBy("Id").All(&student)
+	_, err := o.QueryTable(Student{}).OrderBy("Id").All(&students)
 	if err != nil {
 		return nil, err
 	}

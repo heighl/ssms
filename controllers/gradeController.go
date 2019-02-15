@@ -9,20 +9,21 @@ type GradeControllers struct {
 	beego.Controller
 }
 
-func (this *GradeControllers)One()  {
+func (st *GradeControllers)Get()  {
 	clazz:=&models.Clazz{Id:1}
-	clazzid:=clazz.Grade()
-	this.Data["json"]=&clazzid
-	this.ServeJSON()
+	g:=clazz.GetOne()
+
+	st.Data["json"]=&g
+	st.ServeJSON()
 }
 
 func (this *GradeControllers) AllList()  {
-	grade:=&models.Clazz{}
+	var grade models.Clazz
 	grades,err:=grade.AllGrade()
 	if err!=nil{
 		this.Ctx.WriteString("获取班级列表错误")
 		this.StopRun()
 	}
-	this.Data["json"]=grades
+	this.Data["json"]=&grades
 	this.ServeJSON()
 }

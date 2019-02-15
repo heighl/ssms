@@ -6,14 +6,14 @@ import (
 )
 
 type Exam struct {
-	Id       int64
-	Name     string
-	Time     time.Time
-	Remark   string
-	Type     int64
-	GradeId  *Grade    `orm:"rel(fk)"`
-	ClazzId  *Clazz    `orm:"rel(fk)"`
-	CourseId *Course   `orm:"rel(fk)"`
+	Id     int64
+	Name   string
+	Time   time.Time
+	Remark string
+	Type   int64
+	Grade  *Grade  `orm:"rel(fk)"`
+	Clazz  *Clazz  `orm:"rel(fk)"`
+	Course *Course `orm:"rel(fk)"`
 	//Escore   []*Escore `orm:"reverse(many)"`
 }
 

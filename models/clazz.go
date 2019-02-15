@@ -1,23 +1,25 @@
 package models
 
 import (
+	"github.com/apex/log"
 	"github.com/astaxie/beego/orm"
 )
 
 type Clazz struct {
 	Id      int64
 	Name    string
-	GradeId *Grade `orm:"rel(fk)"`
+	Grade *Grade `orm:"rel(fk)"`
 	//CCT     []*CCT     `orm:"reverse(many)"`
 	//Escore  []*Escore  `orm:"reverse(many)"`
 	//Exam    []*Exam    `orm:"reverse(many)"`
 	//Student []*Student `orm:"reverse(many)"`
 }
 
-func (clazz *Clazz) Grade() *Clazz {
+func (clazz *Clazz) GetOne() *Clazz  {
 	o := orm.NewOrm()
 	err := o.Read(clazz)
 	if err != nil {
+		log.Info(err.Error())
 		return nil
 	}
 	return clazz
