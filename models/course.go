@@ -7,7 +7,7 @@ type Course struct {
 	Name        string
 	//CCT         []*CCT         `orm:"reverse(many)"`
 	//Escore      []*Escore      `orm:"reverse(many)"`
-	//Exam        []*Exam        `orm:"reverse(many)"`
+	Exam        []*Exam        `orm:"reverse(many)"`
 	//GradeCourse []*GradeCourse `orm:"reverse(many)"`
 }
 
@@ -22,7 +22,7 @@ func (course *Course) OneGrade() {
 func (course *Course) AllGrade() ([]*Course, error) {
 	var courses []*Course
 	o := orm.NewOrm()
-	_, err := o.QueryTable(Course{}).OrderBy("Id").All(&courses)
+	_, err := o.QueryTable(Course{}).OrderBy("Id").RelatedSel().All(&courses)
 	if err != nil {
 		return nil, err
 	}

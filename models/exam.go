@@ -14,7 +14,7 @@ type Exam struct {
 	Grade  *Grade  `orm:"rel(fk)"`
 	Clazz  *Clazz  `orm:"rel(fk)"`
 	Course *Course `orm:"rel(fk)"`
-	//Escore   []*Escore `orm:"reverse(many)"`
+	Escore   []*Escore `orm:"reverse(many)"`
 }
 
 func (exam *Exam) OneGrade() {
@@ -28,7 +28,7 @@ func (exam *Exam) OneGrade() {
 func (exam *Exam) AllGrade() ([]*Exam, error) {
 	var exams []*Exam
 	o := orm.NewOrm()
-	_, err := o.QueryTable(Clazz{}).OrderBy("Id").All(&exams)
+	_, err := o.QueryTable(Exam{}).OrderBy("Id").RelatedSel().All(&exams)
 	if err != nil {
 		return nil, err
 	}

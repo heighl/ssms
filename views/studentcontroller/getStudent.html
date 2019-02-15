@@ -1,42 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>开始使用layui</title>
-    <link rel="stylesheet" href="../layui/css/layui.css">
-</head>
-<body background="">
-<script src="../layui/layui.js"></script>
-<!-- 你的HTML代码 -->
+<form class="layui-form layui-form-pane" action="" method="post" style="padding-top: 20px">
+{{ .xsrfdata }}
+    <div class="layui-form-item">
+        <div class=" layui-col-md9">
+            <input type="text" class="layui-input" name="key" placeholder="可输入姓名,电话" value="{{.key}}">
+        </div>
+        <div class="layui-col-md3">
+            <button class="layui-btn layui-btn-sm">搜索</button>
+        </div>
+    </div>
+</form>
 
-<table class="layui-table" lay-even lay-skin="nob">
+<div>
     <table class="layui-table">
-        <colgroup>
-            <col width="150">
-            <col width="200">
-            <col>
-        </colgroup>
         <thead>
-        <tr>
-            <th>昵称</th>
-            <th>加入时间</th>
-            <th>签名</th>
-        </tr>
+        <td>ID</td>
+        <td>编号</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>电话</td>
+        <td>qq</td>
+        <td>班级</td>
+        <td>年级</td>
         </thead>
         <tbody>
+        {{range .students}}
         <tr>
-            <td>贤心</td>
-            <td>2016-11-29</td>
-            <td>人生就像是一场修行</td>
+            <td>{{.Id}}</td>
+            <td>{{.Number}}</td>
+            <td>{{.Name}}</td>
+            <td>{{.Sex}}</td>
+            <td>{{.Phone}}</td>
+            <td>{{.Qq}}</td>
+            <td>{{.Clazz}}</td>
+            <td>{{.Grade}}</td>
+        {{/*<td>*/}}
+        {{/*<button class="layui-btn layui-btn-sm" onclick="edit()"><a href="{{urlfor "StudentControllers.Update"}}?id={{.id}}">编辑</a></button>*/}}
+        {{/*</td>*/}}
         </tr>
-        <tr>
-            <td>许闲心</td>
-            <td>2016-11-28</td>
-            <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-        </tr>
+        {{end}}
         </tbody>
     </table>
-</table>
-</body>
-</html>
+</div>
+<div id="pages"></div>
+
+
+<script>
+    layui.use(['form','laypage','jquery'],function () {
+        var form = layui.form,
+                $ = layui.$,
+                laypage = layui.laypage;
+
+        laypage.render({
+            elem: 'pages'
+            ,count: {{.pagecount}}
+            ,curr:{{.page}}
+            ,limit:{{.pagelimit}}
+            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            ,jump: function(obj, first){
+
+                //首次不执行
+                if(!first){
+                    location.href="{{urlfor "StudentControllers.List"}}?page="+obj.curr+"&limit="+obj.limit+"&key="+{{.key}};
+
+                }
+            }
+        });
+    });
+</script>

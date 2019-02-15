@@ -16,13 +16,14 @@ func (this *ExamControllers)One()  {
 	this.ServeJSON()
 }
 
-func (this *ExamControllers) AllList()  {
+func (this *ExamControllers) List()  {
 	grade:=&models.Exam{}
 	grades,err:=grade.AllGrade()
 	if err!=nil{
 		this.Ctx.WriteString("获取班级列表错误")
 		this.StopRun()
 	}
-	this.Data["json"]=grades
-	this.ServeJSON()
+	this.Data["exams"]=grades
+	this.Layout="studentcontroller/layout.html"
+	this.TplName="studentcontroller/exam.html"
 }

@@ -48,3 +48,12 @@ func (this *User) Update() error {
 	}
 	return nil
 }
+
+func (this *User)Login()error  {
+	o := orm.NewOrm()
+	if err :=o.Read(this,"Account");err !=nil{
+		log.Info(err.Error())
+		return err
+	}
+	return nil
+}

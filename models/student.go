@@ -6,15 +6,15 @@ import (
 )
 
 type Student struct {
-	Id      int
-	Number  string
-	Name    string
-	Sex     string
-	Phone   string
-	Qq      string
-	Clazz *Clazz    `orm:"rel(fk)"`
-	Grade *Grade    `orm:"rel(fk)"`
-	//Escore  []*Escore `orm:"reverse(many)"`
+	Id     int
+	Number string
+	Name   string
+	Sex    string
+	Phone  string
+	Qq     string
+	Clazz  *Clazz    `orm:"rel(fk)"`
+	Grade  *Grade    `orm:"rel(fk)"`
+	Escore []*Escore `orm:"reverse(many)"`
 }
 
 func (this *Student) GetOne() *Student {
@@ -51,4 +51,23 @@ func (student *Student) Update() error {
 		return err
 	}
 	return nil
+}
+
+//一共返回两个变量，一个是显示当前的。另外一个是没有分页的，可以很好的返回总页数
+func (this *Student) ListLimit(limit, page int, key string) ([]*Student, []*Student) {
+	o := orm.NewOrm()
+	var clients []*Student
+	var num []*Student
+	if key == "*" {
+		o.QueryTable(Student{}).Limit(limit, (page-1)*limit).OrderBy("Id").RelatedSel().All(&clients)
+		//log.Info(err.Error())
+		o.QueryTable(Student{}).All(&num)
+	} else {
+		con := orm.NewCondition()
+		con1 := con.Or("Name__icontains", key).Or("Phone__icontains", key)
+		o.QueryTable(Student{}).SetCond(con1).Limit(limit, (page-1)*limit).OrderBy("-Id").RelatedSel().All(&clients)
+		o.QueryTable(Student{}).SetCond(con1).All(&num)
+
+	}
+	return clients, num
 }

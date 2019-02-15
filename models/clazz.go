@@ -11,7 +11,7 @@ type Clazz struct {
 	Grade *Grade `orm:"rel(fk)"`
 	//CCT     []*CCT     `orm:"reverse(many)"`
 	//Escore  []*Escore  `orm:"reverse(many)"`
-	//Exam    []*Exam    `orm:"reverse(many)"`
+	Exam    []*Exam    `orm:"reverse(many)"`
 	//Student []*Student `orm:"reverse(many)"`
 }
 

@@ -1,0 +1,43 @@
+<form class="layui-form layui-form-pane" action="" method="post" style="padding-top: 20px">
+{{ .xsrfdata }}
+</form>
+
+<div>
+    <table class="layui-table">
+        <thead>
+        <td>考试名称</td>
+        <td>考试时间</td>
+        <td>考试类型</td>
+        <td>考试年级</td>
+        <td>考试班级</td>
+        <td>考试科目</td>
+        <td>备注</td>
+        </thead>
+        <tbody>
+        {{range .exams}}
+        <tr>
+            <td><a href="{{urlfor "EscoreControllers.List"}}">{{.Name}}</a></td>
+            <td>{{.Time}}</td>
+            <td>{{.Type}}</td>
+            <td>{{.Grade.Name}}</td>
+            <td>{{.Clazz.Name}}</td>
+            <td>{{.Course.Name}}</td>
+            <td>{{.Remark}}</td>
+        {{/*<td>*/}}
+        {{/*<button class="layui-btn layui-btn-sm" onclick="edit()"><a href="{{urlfor "StudentControllers.Update"}}?id={{.id}}">编辑</a></button>*/}}
+        {{/*</td>*/}}
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+<div id="pages"></div>
+
+
+<script>
+    layui.use(['form','laypage','jquery'],function () {
+        var form = layui.form,
+                $ = layui.$,
+                laypage = layui.laypage;
+    });
+</script>

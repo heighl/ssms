@@ -11,7 +11,7 @@ type Grade struct {
 	//Clazz       []*Clazz       `orm:"reverse(many)"`
 	//CCT         []*CCT         `orm:"reverse(many)"`
 	//Escore      []*Escore      `orm:"reverse(many)"`
-	//Exam        []*Exam        `orm:"reverse(many)"`
+	Exam        []*Exam        `orm:"reverse(many)"`
 	//GradeCourse []*GradeCourse `orm:"reverse(many)"`
 	//Student     []*Student     `orm:"reverse(many)"`
 }
