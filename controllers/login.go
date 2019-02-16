@@ -20,7 +20,7 @@ func (this *LoginControllers)Login()  {
 			this.Ctx.WriteString("验证失败")
 			this.StopRun()
 		}
-		//this.SetSession("username",user)
+		this.SetSession("username",user)
 		this.Redirect(beego.URLFor("MainController.Get"),302)
 	}else {
 		this.Xsrf()

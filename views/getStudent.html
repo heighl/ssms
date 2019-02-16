@@ -31,8 +31,8 @@
             <td>{{.Sex}}</td>
             <td>{{.Phone}}</td>
             <td>{{.Qq}}</td>
-            <td>{{.Clazz.Name}}</td>
-            <td>{{.Grade.Name}}</td>
+            <td>{{.Clazz}}</td>
+            <td>{{.Grade}}</td>
         {{/*<td>*/}}
         {{/*<button class="layui-btn layui-btn-sm" onclick="edit()"><a href="{{urlfor "StudentControllers.Update"}}?id={{.id}}">编辑</a></button>*/}}
         {{/*</td>*/}}
@@ -44,26 +44,26 @@
 <div id="pages"></div>
 
 
-{{/*<script>*/}}
-    {{/*layui.use(['form','laypage','jquery'],function () {*/}}
-        {{/*var form = layui.form,*/}}
-                {{/*$ = layui.$,*/}}
-                {{/*laypage = layui.laypage;*/}}
+<script>
+    layui.use(['form','laypage','jquery'],function () {
+        var form = layui.form,
+                $ = layui.$,
+                laypage = layui.laypage;
 
-        {{/*laypage.render({*/}}
-            {{/*elem: 'pages'*/}}
-            {{/*,count: {{.pagecount}}*/}}
-            {{/*,curr:{{.page}}*/}}
-            {{/*,limit:{{.pagelimit}}*/}}
-            {{/*,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']*/}}
-            {{/*,jump: function(obj, first){*/}}
+        laypage.render({
+            elem: 'pages'
+            ,count: {{.pagecount}}
+            ,curr:{{.page}}
+            ,limit:{{.pagelimit}}
+            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            ,jump: function(obj, first){
 
-                {{/*//首次不执行*/}}
-                {{/*if(!first){*/}}
-                    {{/*location.href="{{urlfor "StudentControllers.List"}}?page="+obj.curr+"&limit="+obj.limit+"&key="+{{.key}};*/}}
+                //首次不执行
+                if(!first){
+                    location.href="{{urlfor "StudentControllers.List"}}?page="+obj.curr+"&limit="+obj.limit+"&key="+{{.key}};
 
-                {{/*}*/}}
-            {{/*}*/}}
-        {{/*});*/}}
-    {{/*});*/}}
-{{/*</script>*/}}
+                }
+            }
+        });
+    });
+</script>

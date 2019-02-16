@@ -11,6 +11,7 @@ func init() {
 	//学生列表
   	beego.Router("/student",&controllers.MainController{},"*:Get")
 	beego.Router("/student/info/list",&controllers.StudentControllers{},"*:List")
+	beego.Router("/student/info/adresslist",&controllers.StudentControllers{},"*:AddressList")
   	//考试列表
 	beego.Router("/exam/info/list",&controllers.ExamControllers{},"*:List")
 	beego.Router("/exam/info",&controllers.GradeControllers{},"*:AllList")

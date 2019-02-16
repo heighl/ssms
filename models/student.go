@@ -71,3 +71,20 @@ func (this *Student) ListLimit(limit, page int, key string) ([]*Student, []*Stud
 	}
 	return clients, num
 }
+func (this *Student) AdressList(gradeId int64, clazzId int64) []*Student {
+	var students []*Student
+	o:=orm.NewOrm()
+	o.QueryTable(Student{}).Filter("Grade",gradeId).
+		Filter("Clazz",clazzId).OrderBy("Id").RelatedSel().All(&students)
+	return students
+}
+
+func (this *Student) NameGet(name string) []*Student {
+	o := orm.NewOrm()
+	var user []*Student
+	_,err:=o.QueryTable(Student{}).Filter("Name",name).All(&user)
+	if err!=nil{
+		log.Info(err.Error())
+	}
+	return user
+}

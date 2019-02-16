@@ -57,3 +57,13 @@ func (this *User)Login()error  {
 	}
 	return nil
 }
+
+func (this *User) IdGet(id interface{}) []*User {
+	o := orm.NewOrm()
+	var user []*User
+	_,err:=o.QueryTable(User{}).Filter("Account",id).All(&user)
+	if err!=nil{
+		log.Info(err.Error())
+	}
+	return user
+}

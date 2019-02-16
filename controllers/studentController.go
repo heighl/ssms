@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"ssms/models"
 )
 
@@ -49,5 +50,18 @@ func (this *StudentControllers)List()  {
 	this.Data["page"]=page
 	this.Xsrf()
 	this.Layout="public/layout.html"
+	this.TplName="studentcontroller/getStudent.html"
+}
+
+func (this *StudentControllers)AddressList()  {
+	account:=this.GetSession("username")
+	user:=&models.User{}
+	users:=user.IdGet(account)
+	fmt.Println(users[0].Name)
+	student:=&models.Student{}
+	st:=student.NameGet(users[0].Name)
+	students:=student.AdressList(st[0].Grade.Id,st[0].Clazz.Id)
+	this.Data["students"]=students
+	this.Layout="studentcontroller/layout.html"
 	this.TplName="studentcontroller/getStudent.html"
 }
