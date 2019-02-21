@@ -16,3 +16,9 @@ func (this *MainController) GetTeacher() {
 	this.TplName="teacher/layout.html"
 
 }
+
+func (this *MainController) GetAdmin() {
+
+	this.TplName="admin/layout.html"
+
+}

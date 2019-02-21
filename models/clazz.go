@@ -6,16 +6,16 @@ import (
 )
 
 type Clazz struct {
-	Id      int64
-	Name    string
+	Id    int64
+	Name  string
 	Grade *Grade `orm:"rel(fk)"`
 	//CCT     []*CCT     `orm:"reverse(many)"`
 	//Escore  []*Escore  `orm:"reverse(many)"`
-	Exam    []*Exam    `orm:"reverse(many)"`
+	Exam []*Exam `orm:"reverse(many)"`
 	//Student []*Student `orm:"reverse(many)"`
 }
 
-func (clazz *Clazz) GetOne() *Clazz  {
+func (clazz *Clazz) GetOne() *Clazz {
 	o := orm.NewOrm()
 	err := o.Read(clazz)
 	if err != nil {
@@ -46,6 +46,15 @@ func (clazz *Clazz) Add() error {
 func (clazz *Clazz) Update() error {
 	o := orm.NewOrm()
 	if _, err := o.Update(clazz, "Name", "GradeId"); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (clazz *Clazz) SerchClazz() error {
+	o:=orm.NewOrm()
+	err:=o.QueryTable(Clazz{}).Filter("name",clazz.Name).Filter("grade_id",clazz.Grade).One(clazz)
+	if err!=nil{
 		return err
 	}
 	return nil

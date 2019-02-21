@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>{{.pagetitle}}</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+{{/*<link rel="stylesheet" href="/static/css/login.css">*/}}
+    <script src="/static/layui/layui.js"></script>
+</head>
+
+<body>
+<form class="layui-form" action="" method="post">
+{{ .xsrfdata }}
+{{/*<div class="layui-form-item">*/}}
+{{/*<label class="layui-form-label">学号</label>*/}}
+{{/*<div class="layui-input-block">*/}}
+{{/*<input type="text" name="number" required  lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">*/}}
+{{/*</div>*/}}
+{{/*</div>*/}}
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入考试名称" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试类型</label>
+        <div class="layui-input-block">
+            <input type="text" name="type" required lay-verify="required" placeholder="请输入考试类型" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试时间</label>
+        <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+            <input type="text" name="time" class="layui-input" id="test1">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试年级</label>
+        <div class="layui-input-block">
+            <select name="grade" lay-verify="">
+                <option value="">请选择一个年级</option>
+                <option value="0">全年级</option>
+                <option value="1">2013级</option>
+                <option value="2">2014级</option>
+                <option value="3">2015级</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试班级</label>
+        <div class="layui-input-block">
+            <select name="clazz" lay-verify="">
+                <option value="">请选择一个班级</option>
+                <option value="0">整个年级</option>
+                <option value="1班">一班</option>
+                <option value="2班">二班</option>
+                <option value="3班">三班</option>
+                <option value="4班">四班</option>
+                <option value="5班">五班</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试科目</label>
+        <div class="layui-input-block">
+            <select name="course" lay-verify="">
+                <option value="">请选择一个科目</option>
+                <option value="0">全科目</option>
+                <option value="1">语文</option>
+                <option value="2">数学</option>
+                <option value="3">英语</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <input type="text" name="remark" required lay-verify="required" placeholder="请输入备注" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn layui-btn-normal" lay-submit lay-filter="login">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        // form.on('submit(formDemo)', function(data){
+        //     layer.msg(JSON.stringify(data.field));
+        //     return false;
+        // });
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+    });
+</script>
+</body>
+</html>

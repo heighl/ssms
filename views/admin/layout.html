@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.pagetitle}}</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+</head>
+<body>
+<div class="layui-layout">
+    <div class="layui-bg-black">
+        <div class="layui-container">
+            <div class="layui-row">
+                <ul class="layui-nav">
+                    <li class="layui-nav-item">
+                        <a href="{{urlfor "MainController.Get"}}">首页</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">教学管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{urlfor "AdminControllers.ExamList"}}">添加考试</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">学生管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{urlfor "AdminControllers.StudentInfoList"}}">添加学生信息</a></dd>
+                            <dd><a href="{{urlfor "AdminControllers.UpStudentInfoList"}}">修改学生信息</a></dd>
+                            <dd><a href="{{urlfor "AdminControllers.DeleteStudentPage"}}">删除学生信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">课程管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{urlfor "StudentControllers.Updata"}}">给老师分配课程</a></dd>
+                        </dl>
+                    </li>
+                    <ul class="layui-nav layui-layout-right">
+                        <li class="layui-nav-item">
+                            <a href="javascript:;">个人设置</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="{{urlfor "LoginController.UpdatePass"}}">修改密码</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item"><a href="{{urlfor "LoginController.Logout"}}">退出登录</a></li>
+                    </ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="layui-container">
+        <div class="layui-row">
+        {{.LayoutContent}}
+        </div>
+    </div>
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

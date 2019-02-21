@@ -73,8 +73,6 @@ func (this *StudentControllers)AddressList()  {
 func (this *StudentControllers)Updata()  {
 	if this.IsPost() {
 		//number:=this.GetString("number")
-		name := this.GetString("name")
-		sex := this.GetString("sex")
 		tele := this.GetString("tele")
 		qq := this.GetString("qq")
 		account := this.GetSession("number")
@@ -82,8 +80,6 @@ func (this *StudentControllers)Updata()  {
 
 		student := models.Student{Number: id}
 		st := student.GetId()
-		st.Name = name
-		st.Sex = sex
 		st.Phone = tele
 		st.Qq = qq
 

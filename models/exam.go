@@ -11,10 +11,10 @@ type Exam struct {
 	Time   time.Time
 	Remark string
 	Type   int64
-	Grade  *Grade  `orm:"rel(fk)"`
-	Clazz  *Clazz  `orm:"rel(fk)"`
-	Course *Course `orm:"rel(fk)"`
-	Escore   []*Escore `orm:"reverse(many)"`
+	Grade  *Grade    `orm:"rel(fk)"`
+	Clazz  *Clazz    `orm:"rel(fk)"`
+	Course *Course   `orm:"rel(fk)"`
+	Escore []*Escore `orm:"reverse(many)"`
 }
 
 func (exam *Exam) OneGrade() {

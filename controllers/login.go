@@ -24,7 +24,7 @@ func (this *LoginControllers)Login()  {
 		this.SetSession("number",users.Account)
 		this.SetSession("type",users.Type)
 		if  users.Type==1{
-			
+			this.Redirect(beego.URLFor("MainController.GetAdmin"),302)
 		}else if users.Type==2 {
 			this.Redirect(beego.URLFor("MainController.GetStudent"),302)
 		}else {

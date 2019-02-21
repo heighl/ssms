@@ -11,15 +11,16 @@ type Course struct {
 	//GradeCourse []*GradeCourse `orm:"reverse(many)"`
 }
 
-func (course *Course) OneGrade() {
+func (course *Course) OneCourse() *Course {
 	o := orm.NewOrm()
 	err := o.Read(course)
 	if err != nil {
-		return
+		return nil
 	}
+	return course
 }
 
-func (course *Course) AllGrade() ([]*Course, error) {
+func (course *Course) AllCourse() ([]*Course, error) {
 	var courses []*Course
 	o := orm.NewOrm()
 	_, err := o.QueryTable(Course{}).OrderBy("Id").RelatedSel().All(&courses)
