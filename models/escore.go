@@ -51,6 +51,14 @@ func (escore *Escore) Update() error {
 	return nil
 }
 
+func (escore *Escore) UpdateSorce() error {
+	o := orm.NewOrm()
+	if _, err := o.Update(escore,"Score"); err != nil {
+		return err
+	}
+	return nil
+}
+
 //一共返回两个变量，一个是显示当前的。另外一个是没有分页的，可以很好的返回总页数
 func (this *Escore)ListLimit(limit,page int,key string)([]*Escore,[]*Escore)  {
 	o := orm.NewOrm()
@@ -70,10 +78,10 @@ func (this *Escore)ListLimit(limit,page int,key string)([]*Escore,[]*Escore)  {
 	return clients,num
 }
 
-func (this *Escore) IdStudentEscore(id int) []*Escore  {
+func (this *Escore) IdStudentEscore(id,types int) []*Escore  {
 	o := orm.NewOrm()
 	var students []*Escore
-	o.QueryTable(Escore{}).Filter("Student",id).All(&students)
+	o.QueryTable(Escore{}).Filter("Exam",types).Filter("Student",id).All(&students)
 	return students
 }
 func (this *Escore) IdTypeEscore(id int) int {

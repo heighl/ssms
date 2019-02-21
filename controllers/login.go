@@ -20,8 +20,16 @@ func (this *LoginControllers)Login()  {
 			this.Ctx.WriteString("验证失败")
 			this.StopRun()
 		}
-		this.SetSession("username",user)
-		this.Redirect(beego.URLFor("MainController.Get"),302)
+		this.SetSession("id",users.Id)
+		this.SetSession("number",users.Account)
+		this.SetSession("type",users.Type)
+		if  users.Type==1{
+			
+		}else if users.Type==2 {
+			this.Redirect(beego.URLFor("MainController.GetStudent"),302)
+		}else {
+			this.Redirect(beego.URLFor("MainController.GetTeacher"),302)
+		}
 	}else {
 		this.Xsrf()
 		this.Data["pagetitle"]="登录系统"
