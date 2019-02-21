@@ -1,0 +1,29 @@
+<div>
+    <table class="layui-table">
+        <thead>
+        <td>ID</td>
+        <td>编号</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>电话</td>
+        <td>qq</td>
+        <td>班级</td>
+        <td>年级</td>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{.student.Id}}</td>
+            <td>{{.student.Number}}</td>
+            <td>{{.student.Name}}</td>
+            <td>{{.student.Sex}}</td>
+            <td>{{.student.Phone}}</td>
+            <td>{{.student.Qq}}</td>
+            <td>{{.student.Clazz.Name}}</td>
+            <td>{{.student.Grade.Name}}</td>
+        {{/*<td>*/}}
+        {{/*<button class="layui-btn layui-btn-sm" onclick="edit()"><a href="{{urlfor "StudentControllers.Update"}}?id={{.id}}">编辑</a></button>*/}}
+        {{/*</td>*/}}
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -16,7 +16,7 @@
         <tbody>
         {{range .exams}}
         <tr>
-            <td><a href="{{urlfor "EscoreControllers.List"}}">{{.Name}}</a></td>
+            <td><a href="{{urlfor "EscoreControllers.List"}}?id={{.Type}}">{{.Name}}</a></td>
             <td>{{.Time}}</td>
             <td>{{.Type}}</td>
             <td>{{.Grade.Name}}</td>

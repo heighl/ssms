@@ -33,10 +33,9 @@
             <td>{{.Py}}</td>
             <td>{{.Bi}}</td>
             <td>{{.Total}}</td>
-
-        {{/*<td>*/}}
-        {{/*<button class="layui-btn layui-btn-sm" onclick="edit()"><a href="{{urlfor "StudentControllers.Update"}}?id={{.id}}">编辑</a></button>*/}}
-        {{/*</td>*/}}
+            {{/*<td>*/}}
+            {{/*<button class="layui-btn layui-btn-sm" onclick="edit()"><a href="{{urlfor "StudentControllers.Update"}}?id={{.id}}">编辑</a></button>*/}}
+            {{/*</td>*/}}
         </tr>
         {{end}}
         </tbody>
@@ -61,7 +60,8 @@
 
                 //首次不执行
                 if(!first){
-                    location.href="{{urlfor "EscoreControllers.List"}}?page="+obj.curr+"&limit="+obj.limit+"&key="+{{.key}};
+                    location.href="{{urlfor "EscoreControllers.List"}}?page="+obj.curr+"&id="+{{.id}}
+                            +"&limit="+obj.limit+"&key="+{{.key}};
 
                 }
             }

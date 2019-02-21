@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fmt"
+	"github.com/apex/log"
 	"ssms/models"
 )
 
@@ -9,12 +9,15 @@ type StudentControllers struct {
 	BaseController
 }
 
-func (st *StudentControllers) One() {
-	clazz:=&models.Student{Id:1}
-	g:=clazz.GetOne()
+func (this *StudentControllers) One() {
+	account := this.GetSession("number")
+	id := account.(string)
 
-	st.Data["json"]=&g
-	st.ServeJSON()
+	student := models.Student{Number: id}
+	st := student.GetId()
+	this.Data["student"]=st
+	this.Layout="studentcontroller/layout.html"
+	this.TplName="studentcontroller/oneStudent.html"
 }
 
 func (this *StudentControllers)List()  {
@@ -30,13 +33,14 @@ func (this *StudentControllers)List()  {
 	if key == ""{
 		key = "*"
 	}
+
 	//如果提交的方式是搜索来的，必须定向到第一页
 	if this.IsPost(){
 		limit=10
 		page=1
 	}
 	client := &models.Student{}
-	clients,snum := client.ListLimit(limit,page,key)
+	clients,snum := client.ListLimit(limit,limit,page,key)
 	this.Data["students"]=clients
 	this.Data["pagetitle"]="用户列表"
 	//为了区分全搜索还是局部搜索要再次判断key
@@ -49,19 +53,50 @@ func (this *StudentControllers)List()  {
 	this.Data["pagelimit"]=limit
 	this.Data["page"]=page
 	this.Xsrf()
-	this.Layout="public/layout.html"
+	this.Layout="studentcontroller/layout.html"
 	this.TplName="studentcontroller/getStudent.html"
 }
 
 func (this *StudentControllers)AddressList()  {
-	account:=this.GetSession("username")
-	user:=&models.User{}
-	users:=user.IdGet(account)
-	fmt.Println(users[0].Name)
-	student:=&models.Student{}
-	st:=student.NameGet(users[0].Name)
-	students:=student.AdressList(st[0].Grade.Id,st[0].Clazz.Id)
+	id:=this.GetSession("number")
+	ids:=id.(string)
+
+	student:=models.Student{Number:ids}
+	st:=student.GetId()
+
+	students:=student.AdressList(st.Grade.Id,st.Clazz.Id)
 	this.Data["students"]=students
 	this.Layout="studentcontroller/layout.html"
 	this.TplName="studentcontroller/getStudent.html"
+}
+
+func (this *StudentControllers)Updata()  {
+	if this.IsPost() {
+		//number:=this.GetString("number")
+		name := this.GetString("name")
+		sex := this.GetString("sex")
+		tele := this.GetString("tele")
+		qq := this.GetString("qq")
+		account := this.GetSession("number")
+		id := account.(string)
+
+		student := models.Student{Number: id}
+		st := student.GetId()
+		st.Name = name
+		st.Sex = sex
+		st.Phone = tele
+		st.Qq = qq
+
+		err := st.Update()
+		if err != nil {
+			log.Error(err.Error())
+		}
+		log.Infof("stuent", st)
+
+		//this.Data["student"]
+		this.Redirect(this.URLFor(".One"),302)
+	}else {
+		this.Layout = "studentcontroller/layout.html"
+		this.TplName = "studentcontroller/updateInformation.html"
+	}
 }
